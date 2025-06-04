@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Learn something new every day. AI is your tutor!">
+    <title>Learn with OrionChat</title>
+    <script>
+        let chat_id = 558792000000; // September 16, 1987 - In celebration of the Montreal Protocol
+    </script>
+    <link rel="icon" href="../favicon.png">
+    <link rel="stylesheet" href="../css/highlight_js/themes/github-dark-dimmed.css?v=1.0.3">
+    <link rel="stylesheet" href="../css/chat.css?v=3.2.0">
+    <link rel="stylesheet" href="../css/labs.css?v=1.0.1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Learn with OrionChat">
+    <meta property="og:description" content="Learn something new every day. AI is your tutor!">
+    <meta property="og:image" content="https://eliaspereirah.github.io/OrionChat/imgs/screenshot.png">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:url" content="https://eliaspereirah.github.io/OrionChat/">
+</head>
+<body>
+<div class="container">
+    <div id="all_dialogs"></div>
+    <div id="settings"></div>
+    <div class="conversations">
+        <div class="jsClose"></div>
+        <div class="labs_panel">
+            <div onclick="goHome()" id="orion_home">Home</div>
+            <div onclick="howNuggetsWork()" id="how_nuggets_work">How it works</div>
+        </div>
+        <div class="history">
+            <div id="new_chat">New Chat</div>
+            <div id="open_options">Options</div>
+            <div id="theme_toggle">Dark Mode 🌙</div>
+
+            <div id="delete_history">
+                Delete:
+                <label class="switch">
+                    <input id="can_delete" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div id="search_chats">
+                <label for="input_search"></label>
+                <input id="input_search" type="text" placeholder=" Search chats">
+            </div>
+        </div>
+    </div>
+    <div id="experiments" class="labs learn">
+        <div class="center">
+            <h1>Nuggets of Knowledge</h1>
+            <p>Deepen your knowledge on a topic lightly, every day you use OrionChat.</p>
+            <label for="topic"></label><input id="topic" type="text" placeholder="Enter a topic">
+            <label for="lang"></label><input id="lang" type="text" placeholder="Enter your language">
+
+            <div class="center">
+                <div class="info_warning"></div>
+                <p>AI Instruction:</p>
+                <div id="nugget_task">
+                        You are an expert professor on <span class="user_topic">{{topic}}</span>.<br>
+                        Every time I type 'Go:', you will teach me a new concept about <span class="user_topic">{{topic}}</span>.<br>
+                        <div class="editable_ai_instruction" contenteditable="true">Lesson Instructions:<br>
+                        Format: Lessons must be clear, didactic, and, crucially, built upon previously taught concepts, progressing from the simplest to the most complex.<br>
+                        Length: Average of 128 words.<br>
+                        Directness: No introductions, detours, or side conversations. Get straight to the content.<br>
+                        Structure:<br>
+                        The main teaching must ALWAYS be within the "learn" tag.<br>
+                        Remember: Your focus is on clarity, logical progression, and conciseness.<br>
+                        The lesson must be in this language: <span class="user_lang">{{user_lang}}</span>.
+                        </div>
+                </div>
+                <div class="info_warning">Note: The field above is editable; editing is optional.
+                </div>
+                <button id="set_nugget">Define</button>
+                <button id="remove_nugget">Remove</button>
+                <button class="discreet_button" onclick="goHome()">Home Page</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="chat">
+        <div tabindex="-1" id="chat-messages">
+            <div class="message start_msg" id="welcome"><p>Welcome to Orion!</p><br></div>
+        </div>
+        <div id="loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="chat-input">
+            <div class="chat_wrap">
+                <label><textarea id="ta_chat" placeholder="Ask me something"></textarea></label>
+                <div class="wrap_rec_and_up">
+                    <label title="Upload file" class="upload_picture">
+                        <input id="fileInput" class="ds_none" type="file" name="fileInput">
+                    </label>
+                    <button title="Send" class="ds_none" id="send"></button>
+                    <div class="wrap_mic_icon">
+                        <button id="voice_rec"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- end container -->
+<script src="../js/library/showdown@2.1.0.js?v=2.1.0"></script>
+<script src="../js/library/highlight.js?v=11.9.0"></script>
+<script src="../js/stt.js?v=1.2.0"></script>
+<script src="../js/tts.js?v=1.2.0"></script>
+<script src="../js/md5.js?v=1.0.1"></script>
+<script src="../js/google_cse.js?v=1.1.1"></script>
+<script src="../js/4devs.js?v=1.0.1"></script>
+<script src="../js/prompts.js?v=1.0.8"></script>
+<script src="../js/tools_list.js?v=1.2.0"></script>
+<script src="../js/labs.js?v=3.2.1"></script>
+<script src="../js/search_chats.js?v=0.0.3"></script>
+<script src="../js/voice_rec.js?v=1.0.6"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+.chat{
+    display: none;
+}
+.history{
+    display: none;
+}
+.editable_ai_instruction{
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    padding: 3px 3px 15px 3px;
+    background-color: #090909;
+}
+
+.info_warning:empty{
+    display: none;
+}
+.info_warning{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 6px;
+}
+.info_warning p{
+    padding: 0;
+    margin: 3px;
+}
+
+#orion_home, #how_nuggets_work {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid var(--new-chat-border-cl);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 2px;
+}
+.labs_panel{
+    padding: 40px;
+}
+
+.custom_dialog{
+    border: 1px solid red;
+}
+
+input{
+    min-height: 35px;
+}
+button{
+    margin-top: 5px;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #7578e1;
+    border-radius: 5px;
+    background-color: var(--dialog-button-bg);
+    color: var(--dialog-button-color);
+    font-weight: normal;
+    transition: background-color 0ms, color 0ms, border 500ms, font-weight 500ms;
+}
+
+.labs{
+    min-height: 97vh;
+    border-radius: 5px;
+    padding: 0 20px 20px;
+    box-shadow: 0 2px 5px #22272e;
+    width: 60%;
+    margin: 0 20%;
+    box-sizing: border-box;
+}
+#nugget_task{
+    text-align: center;
+    line-height: 1.8;
+    max-height: 250px;
+    overflow: auto;
+    color: #09de61;
+    background-color: #292929;
+    padding: 0 8px 16px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin: 8px 0;
+    border: 1px solid #5e5e5e;
+}
+
+.user_topic, .user_lang, .nu_topic{
+    border-radius: 4px;
+    color: #a2b4a9;
+    font-weight: 600;
+    padding: 1px 3px;
+    border: 1px dotted #a2b4a9;
+}
+h1{
+    color: #02f968;
+    margin-top: 0;
+}
+pre{
+    white-space:pre-line;
+    font-size: 1.1em;
+}
+
+@media all and (max-width: 1200px) {
+    .labs {
+        width: 90%;
+        margin: 0 5%;
+    }
+
+}
+
+@media all and (max-width: 800px) {
+    .labs {
+        width: 100%;
+        margin: 0;
+    }
+}

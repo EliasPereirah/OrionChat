@@ -1,0 +1,14 @@
+{
+  "name": "Orion",
+  "short_name": "Orion",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "imgs/icons/orion_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+
+  ]
+}

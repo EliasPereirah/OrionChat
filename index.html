@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Orion: Open source, unified AI chat interface.">
+    <title>OrionChat</title>
+    <script>
+        let chat_id = new Date().getTime();
+    </script>
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="css/highlight_js/themes/github-dark-dimmed.css?v=1.0.3">
+    <link rel="stylesheet" href="css/chat.css?v=3.2.1">
+    <link rel="manifest" href="manifest.json">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="OrionChat">
+    <meta property="og:description" content="OrionChat: Open source, unified AI chat interface.">
+    <meta property="og:image" content="https://eliaspereirah.github.io/OrionChat/imgs/screenshot.png">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:url" content="https://eliaspereirah.github.io/OrionChat/">
+</head>
+<body>
+<div class="container">
+    <div id="all_dialogs"></div>
+    <div id="settings"></div>
+    <div class="conversations">
+        <div class="jsClose"></div>
+        <div class="history">
+            <div id="new_chat">New Chat</div>
+            <div id="open_options">Options</div>
+            <div id="theme_toggle">Dark Mode 🌙</div>
+            <div id="delete_history">
+                Delete:
+                <label class="switch">
+                    <input id="can_delete" type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div id="search_chats">
+                <label for="input_search"></label>
+             <input id="input_search" type="text" placeholder=" Search chats">
+            </div>
+        </div>
+    </div>
+    <div class="chat">
+        <div tabindex="-1" id="chat-messages">
+            <div class="message start_msg" id="welcome"><p>Welcome to Orion!</p><br></div>
+        </div>
+        <div id="loading">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="chat-input">
+            <div class="chat_wrap">
+                <label><textarea id="ta_chat" placeholder="Ask me something"></textarea></label>
+                <div class="wrap_rec_and_up">
+                    <label title="Upload file" class="upload_picture">
+                        <input id="fileInput" class="ds_none" type="file" name="fileInput">
+                    </label>
+                    <button title="Send" class="ds_none" id="send"></button>
+                    <div class="wrap_mic_icon">
+                        <button id="voice_rec"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- end container -->
+<script src="js/library/showdown@2.1.0.js?v=2.1.0"></script>
+<script src="js/library/highlight.js?v=11.9.0"></script>
+<script src="js/stt.js?v=1.2.0"></script>
+<script src="js/tts.js?v=1.2.0"></script>
+<script src="js/md5.js?v=1.0.1"></script>
+<script src="js/google_cse.js?v=1.1.1"></script>
+<script src="js/4devs.js?v=1.0.1"></script>
+<script src="js/prompts.js?v=1.0.8"></script>
+<script src="js/tools_list.js?v=1.2.0"></script>
+<script src="js/script.js?v=3.2.2"></script>
+<script src="js/search_chats.js?v=0.0.3"></script>
+<script src="js/voice_rec.js?v=1.0.6"></script>
+<script src="js/nuggets.js"></script>
+<div class="recording-animation">
+    <div class="recording-indicator"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
+</body>
+</html>
