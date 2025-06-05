@@ -12,7 +12,7 @@ function showNuggets(text){
     past_nuggets.push(text);
     localStorage.setItem("nuggets", JSON.stringify(past_nuggets));
     let show_text = `<p class="p_big">${nugget_topic}</p><p>${text}</p> <p><button class="discreet_button" onclick="goNuggets()">Manage Nuggets</button></p>`;
-    addWarning(show_text, false, 'nuggets_dialog');
+    createDialog(show_text, 0, 'nuggets_dialog', false);
 }
 
 
