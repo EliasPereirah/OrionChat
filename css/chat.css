@@ -685,7 +685,7 @@ th {
     border-radius: 4px;
     line-height: 27px;
     box-shadow: none !important;
-    width: 750px;
+    width: 750px !important;
     min-height: 33vh;
     max-height: 97vh;
     overflow-y: auto;
