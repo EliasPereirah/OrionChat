@@ -57,9 +57,10 @@ let PLATFORM_DATA = {
     },
     google: {
         models: [
-            "gemini-2.5-pro-preview-05-06",
             "gemini-2.5-flash-preview-05-20",
-            "gemini-1.5-pro"
+            "gemini-2.0-flash-preview-image-generation",
+            "gemini-2.5-pro-preview-05-06"
+
         ],
         name: "Google",
         endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/{{model}}:{{gen_mode}}?key={{api_key}}'
@@ -157,14 +158,6 @@ let PLATFORM_DATA = {
         get_models_endpoint: "http://localhost:11434/v1/models",
         endpoint: "http://localhost:11434/v1/chat/completions"
     }
-    /* nvidia: {
-         models: [
-             "meta/llama-3.1-405b-instruct",
-             "nvidia/llama-3.1-nemotron-70b-instruct"
-         ],
-         name: "NVIDIA",
-         endpoint: "https://integrate.api.nvidia.com/v1/chat/completions"
-     }*/
 }
 
 
@@ -1097,6 +1090,7 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
     addFileToPrompt();
     conversations.messages.forEach(part => {
         let role = part.role === 'assistant' ? 'model' : part.role;
+        part.content = part.content.replace(/<img[^>]*>/g, ' '); // remove attached images
         all_parts.push({
             "role": role,
             "parts": [
@@ -1106,7 +1100,6 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
             ]
         });
     })
-
 
     if (base64String) {
         geminiUploadImage().then(response => {
@@ -1185,6 +1178,11 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         // "maxOutputTokens": 8192,
     };
 
+   if(model.includes("image")){
+       with_stream = false;
+       data.generationConfig.responseModalities = ["IMAGE", "TEXT"];
+   }
+
     let pog = whichTool(last_user_input);
     if(pog === 'dt'){
         data.generationConfig.thinkingConfig =  { thinkingBudget: 8000 };
@@ -1217,13 +1215,6 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         if (last_user_input.match(/^g:/i)) {
             // Grounding with Google Search
             data.tools = [{'google_search': {}}];
-            /*
-             if(!model.match(/^gemini-1/)){
-             data.tools = [{'google_search': {}}];
-             }else {
-             addWarning("Please use Gemini compatible models for grounding with Google Search!", false)
-             }
-             */
 
         }
 
@@ -1252,9 +1243,18 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         })
         .then(data => {
             let text = '';
+            let inlineData = '';
             if (typeof data === "object") {
                 try {
                     text = data.candidates[0].content.parts[0]?.text ?? '';
+                    inlineData = data.candidates[0].content.parts[0]?.inlineData ?? '';
+                    if(!inlineData){
+                        inlineData = data.candidates[0].content.parts[1]?.inlineData ?? '';
+                    }
+                    if(inlineData){
+                            inlineData = `<img class="img_output" src="data:${inlineData.mimeType};base64,${inlineData.data}" alt="">`
+                    }
+                    text += `${inlineData}`;
                     let g_tool = data.candidates[0].content.parts[0]?.functionCall ?? '';
                     if (g_tool === '') {
                         g_tool = data.candidates[0].content.parts[1]?.functionCall ?? '';
@@ -1276,6 +1276,7 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
 
                 } catch {
                     text += '<pre>' + JSON.stringify(data) + '</pre>';
+                    console.log('Error')
                     try {
                         // Verify if it is an error with the api key being not valid
                         let tt = data.error.message;
@@ -1429,7 +1430,7 @@ function setOptions() {
     let add_new_models = `<button class="more_opt_btn" onclick="addModelsOptions()">Add Models</button>`;
     let more_option = `<button class="more_opt_btn" onclick="moreOptions()">More Options</button>`;
     let btn_youtube_api = `<button class="more_opt_btn" onclick="dialogSetYouTubeCaptionApiEndpoint()">YouTube Captions</button>`;
-    let bnt_nuggets = `<button class="more_opt_btn btn_new" onclick="goNuggets()">Nuggets</button>`;
+    let bnt_nuggets = `<button class="more_opt_btn" onclick="goNuggets()">Nuggets</button>`;
 
     let cnt =
         `<div>${platform_options}
@@ -2735,8 +2736,6 @@ async function geminiStreamChat(fileUri, data, allow_tool_use = true) {
             if (done) {
                 if (story) {
                     addConversation('assistant', story, false, false)
-                    //toggleAnimation(true)
-                    //toggleAiGenAnimation(false);
                 }
                 break;
             }
@@ -2766,8 +2765,6 @@ async function geminiStreamChat(fileUri, data, allow_tool_use = true) {
             });
             if (first_response) {
                 first_response = false;
-                //toggleAnimation(true);
-                //toggleAiGenAnimation(false);
                 botMessageDiv.scrollIntoView();
             }
             if (story) {
@@ -2826,9 +2823,6 @@ async function geminiStreamChat(fileUri, data, allow_tool_use = true) {
     } catch (error) {
         console.error("Error:", error);
         addWarning('Error: ' + error.message)
-        //toggleAnimation(true);
-        // toggleAiGenAnimation(false);
-        //enableChat();
     } finally {
         if(grounding_rendered_cnt){
             const all_div_bots = document.querySelectorAll('.bot');
@@ -2840,7 +2834,6 @@ async function geminiStreamChat(fileUri, data, allow_tool_use = true) {
         }
         enableCopyForCode();
         enableChat();
-        //toggleAnimation(true)
         toggleAiGenAnimation(false);
         toggleAiGenAnimation(false);
     }
