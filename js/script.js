@@ -1180,6 +1180,9 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
 
    if(model.includes("image")){
        with_stream = false;
+       if(data.systemInstruction){
+           delete data.systemInstruction;
+       }
        data.generationConfig.responseModalities = ["IMAGE", "TEXT"];
    }
 
