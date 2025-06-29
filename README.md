@@ -69,6 +69,14 @@ Some companies offer free API access. Check their terms and conditions before yo
 # Special Commands
 Use special commands to perform an action quickly and easily.
 
+### Image generation with Google Gemini
+
+- `pic: image of a dog having fun on the beach`
+- `imagine: image of a cat playing with a basket`
+
+Both commands above are equivalent, by using "imagine:" or "pic" you will be sending your prompt to the Google Gemini image generation model. 
+It will only work when the currently active model is any of Google Gemini.
+
 ###  Grounding with Google Search 
 - `g: what's the main news today`
 

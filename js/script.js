@@ -1086,6 +1086,7 @@ function createDialog(text, duration_seconds = 0, add_class_name = '', can_delet
 }
 
 function geminiChat(fileUri = '', with_stream = true, the_data = '') {
+    let gemini_model = model;
     let all_parts = [];
     let system_prompt = getSystemPrompt();
     addFileToPrompt();
@@ -1179,17 +1180,22 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         // "maxOutputTokens": 8192,
     };
 
-   if(model.includes("image")){
-       with_stream = false;
-       if(data.systemInstruction){
-           delete data.systemInstruction;
-       }
-       data.generationConfig.responseModalities = ["IMAGE", "TEXT"];
-   }
 
     let pog = whichTool(last_user_input);
     if(pog === 'dt'){
         data.generationConfig.thinkingConfig =  { thinkingBudget: 8000 };
+    }
+    if(pog === 'pic' || pog === 'imagine'){
+        console.log('image generation command activated');
+        gemini_model = "gemini-2.0-flash-preview-image-generation";
+    }
+
+    if(gemini_model.includes("image")){
+        with_stream = false;
+        if(data.systemInstruction){
+            delete data.systemInstruction;
+        }
+        data.generationConfig.responseModalities = ["IMAGE", "TEXT"];
     }
 
     if (the_data) {
@@ -1230,7 +1236,7 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         return geminiStreamChat(fileUri, data, allow_tool_use);
     }
 
-    let gemini_endpoint = endpoint.replaceAll("{{model}}", model);
+    let gemini_endpoint = endpoint.replaceAll("{{model}}", gemini_model);
     gemini_endpoint = gemini_endpoint.replaceAll("{{api_key}}", api_key);
     gemini_endpoint = gemini_endpoint.replaceAll("{{gen_mode}}", "generateContent");
 
@@ -2009,7 +2015,8 @@ function needToolUse(last_user_input) {
         'search:', 's:',
         'javascript:', 'js:',
         'youtube:', 'yt:',
-        'dt:'
+        'dt:',
+        'pic:','imagine:'
     ]
     if (cmd_list.includes(cmd)) {
         return true;
@@ -2038,6 +2045,8 @@ function whichTool(last_user_input) {
     }else if(cmd === 'dt:'){
         // Activate extend thinking for Claude
         return 'dt';
+    }else if(cmd.trim() !== ''){
+        return cmd.replaceAll(":","");
     }
     return '';
 }

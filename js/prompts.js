@@ -736,9 +736,15 @@ special_prompts.yt = special_prompts.youtube;
 
 
 
-// Deep Thinking (just for Claude thinking models)
+// Deep Thinking (just for Claude/Google thinking models)
 // Eg: dt: Explain quantum entanglement
 special_prompts.dt = "{{USER_INPUT}} {{ARG1}}";
+
+
+// Image generation (just for Gemini)
+// Eg: pic: Image of a dog on top of a tree
+special_prompts.pic = "{{USER_INPUT}} {{ARG1}}";
+special_prompts.imagine = special_prompts.pic; // alternative command -> "imagine:"
 
 
 
