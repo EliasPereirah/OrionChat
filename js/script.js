@@ -1,5 +1,6 @@
 let can_delete_history = false;
 let max_chats_history = 512;
+let save_history = true;
 let chosen_platform = localStorage.getItem('chosen_platform');
 let model = localStorage.getItem('selected_model');
 let is_mobile = window.matchMedia("(max-width: 768px)").matches;
@@ -338,14 +339,17 @@ function addConversation(role, content, add_to_document = true, do_scroll = true
 
 
 function saveLocalHistory() {
-   try {
-       localStorage.setItem(chat_id.toString(), JSON.stringify(conversations));
-   }catch (e) {
-       if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED'){
-           addWarning('Your browser has reached the maximum number of items allowed for local storage.' +
-               ' Please clear out some old chats to free up space.', false);
-       }
-   }
+    if(save_history){
+        try {
+            localStorage.setItem(chat_id.toString(), JSON.stringify(conversations));
+        }catch (e) {
+            if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED'){
+                addWarning('Your browser has reached the maximum number of items allowed for local storage.' +
+                    ' Please clear out some old chats to free up space.', false);
+            }
+        }
+    }
+    save_history = true;
    loadOldChatTopics();
 }
 
@@ -1186,6 +1190,7 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         data.generationConfig.thinkingConfig =  { thinkingBudget: 8000 };
     }
     if(pog === 'pic' || pog === 'imagine'){
+        save_history = false;
         console.log('image generation command activated');
         gemini_model = "gemini-2.0-flash-preview-image-generation";
     }
@@ -2823,7 +2828,7 @@ async function geminiStreamChat(fileUri, data, allow_tool_use = true) {
             })
             if (story) {
                 // remove base64 image to save tokens
-                conversations.messages[conversations.messages.length - 1].content = story.replace(/<img[^>]*>/g, '');
+                conversations.messages[conversations.messages.length - 1].content = story.replace(/<img[^>]*>/g, ' ');
                 saveLocalHistory();
                 botMessageDiv.innerHTML = converter.makeHtml(story);
             }
