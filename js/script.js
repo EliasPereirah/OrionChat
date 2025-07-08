@@ -3316,8 +3316,7 @@ function stringifyComplexValue(value, indent = 0) {
 
 function whatTimeIsIt() {
     const today = new Date();
-    return today.toLocaleDateString('en-US') + " " + today.toLocaleTimeString();
-    // ex: 11/19/2024 10:18:57
+    return today.toLocaleDateString(navigator.language) + " " + today.toLocaleTimeString();
 }
 
 function extractVideoId(text) {

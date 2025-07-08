@@ -131,6 +131,11 @@ Please perform this functionality with caution and always check code before acce
 - Another example: `py: The United States has a population of 342,524,968, of which 480,000 die annually due to tobacco use. 
 What percentage is that?`
 
+# Current Date
+An LLM has no way of knowing the current date unless you provide it. To do this, you can add "Today: {{date}}" 
+to your system prompt, and this will pass the current date to the LLM every time you send it any message.
+
+
 # Some Observations
 ### About images/videos/PDFs 
 When you upload an image, video, or PDF to OrionChat, it isn’t stored locally.
