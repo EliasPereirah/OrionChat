@@ -10,7 +10,6 @@ It provides a unified platform for chatting and exploring multiple large languag
 - 🎯 Cohere (Command's models)
 - 🚀 Groq Inc. – Optimized for fast inference (open source models) ⚡️
 - ⚡️ Cerebras – Also optimized for fast inference 🚀
-- 💎 SambaNova - Fast inference
 - ♾️ OpenRouter - Gateway to all LLMs
 - ☁️ Together AI - The AI Acceleration Cloud
 - 📡 Deep Infra - Scalable AI backbone
@@ -60,7 +59,6 @@ Some companies offer free API access. Check their terms and conditions before yo
 - **Cerebras:** [Get your Cerebras API key](https://cloud.cerebras.ai/platform/) - 🟢 free
 - **Cohere:** [Get your Cohere API key](https://dashboard.cohere.com/api-keys) - 🟢 free
 - **Groq:** [Get your Groq API key](https://console.groq.com/keys) - 🟢 free
-- **SambaNova:** [Get your SambaNova API key](https://cloud.sambanova.ai/apis) - 🟢 free
 - **Together AI:** 🟢 Free for deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free  [Get your Together AI API key](https://api.together.ai/settings/api-keys)
 - **OpenAI:** [OpenAI key](https://platform.openai.com/api-keys)
 - **Anthropic:** [Anthropic API key](https://console.anthropic.com/settings/keys)
@@ -197,12 +195,6 @@ Click on "Options" -> "Advanced" enter the "RAG endpoint" and click "Activate".
 Now whenever you want the AI to do a search to answer your question, write at the beginning of your prompt
 "s:" + your question, e.g. "s: what's the news today?", The AI will search the web and respond based on the information found.
 
-
-# Cors
-To get around CORS errors when working with SambaNova the API request will pass through `cors-proxy.php`
-which will forward the request to the desired platform. This will not hide your IP address, just forward the request.
-
-This is necessary because direct requests via JavaScript in the browser to these platform are not possible.
 
 # YouTube Caption
 You can simply share the URL of a YouTube video in the chat to be able to ask something about the video content, 

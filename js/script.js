@@ -24,7 +24,6 @@ let pre_function_text = '';
 let all_chunks = [];
 let has_chunk_error = false;
 let grounding_rendered_cnt = '';
-let proxy_url = window.location.origin + window.location.pathname + "cors-proxy.php";
 let dispatcher = 'user';
 // Markdown to HTML
 showdown.setFlavor('github');
@@ -105,18 +104,20 @@ let PLATFORM_DATA = {
         name: "OpenRouter",
         endpoint: "https://openrouter.ai/api/v1/chat/completions"
     },
+   /**
     sambanova: {
-        models: [
-            "DeepSeek-V3-0324",
-            "Qwen2.5-Coder-32B-Instruct",
-            "Meta-Llama-3.1-405B-Instruct",
-            "Llama-3.2-90B-Vision-Instruct"
-        ],
-        needProxy: true,
-        name: "SambaNova",
-        endpoint: "https://api.sambanova.ai/v1/chat/completions"
+    models: [
+    "DeepSeek-V3-0324",
+    "Qwen2.5-Coder-32B-Instruct",
+    "Meta-Llama-3.1-405B-Instruct",
+    "Llama-3.2-90B-Vision-Instruct"
+    ],
+    needProxy: true,
+    name: "SambaNova",
+    endpoint: "https://api.sambanova.ai/v1/chat/completions"
 
     },
+    **/
     cerebras: {
         models: [
             "llama-3.3-70b"
@@ -3429,15 +3430,9 @@ function loadUserAddedPrompts() {
 loadUserAddedPrompts()
 
 
-//Checks if it is necessary to pass the request via cors-proxy.php to get rid of cors and
-// if so returns a new endpoint address
+// returns endpoint address
 function getEndpoint() {
-    let needProxy = PLATFORM_DATA[chosen_platform]?.needProxy ?? false;
-    let endpoint = PLATFORM_DATA[chosen_platform]?.endpoint;
-    if (needProxy) {
-        return `${proxy_url}?endpoint=${endpoint}`;
-    }
-    return endpoint;
+    return PLATFORM_DATA[chosen_platform]?.endpoint;
 }
 
 
