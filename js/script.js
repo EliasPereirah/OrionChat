@@ -46,11 +46,11 @@ let PLATFORM_DATA = {
     },
     groq: {
         models: [
+            "moonshotai/kimi-k2-instruct",
             "qwen-qwq-32b",
             "deepseek-r1-distill-llama-70b",
             "llama-3.3-70b-versatile",
             "llama-3.2-90b-vision-preview",
-            "llama-3.3-70b-specdec",
         ],
         name: "Groq",
         endpoint: "https://api.groq.com/openai/v1/chat/completions"
