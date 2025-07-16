@@ -1,5 +1,6 @@
 # OrionChat
-OrionChat is a web-based chat interface that simplifies interactions with multiple AI model providers.
+OrionChat is a free and open-source web-based chat interface that simplifies interactions with various generative AI providers.
+
 It provides a unified platform for chatting and exploring multiple large language models (LLMs), including:
 
 - 🌐 OpenAI (GPTs and beyond)
@@ -64,6 +65,16 @@ Some companies offer free API access. Check their terms and conditions before yo
 - **Anthropic:** [Anthropic API key](https://console.anthropic.com/settings/keys)
 - **DeepSeek:** [DeepSeek API Key](https://platform.deepseek.com/api_keys)
 - **Hyperbolic:** [Hyperbolic API Key](https://app.hyperbolic.xyz/settings#api-key) 
+
+### Live Code Preview for HTML/CSS/JS
+
+OrionChat can now render HTML, CSS, and JavaScript code snippets directly within the chat interface.
+![Live Code Preview Screenshot](imgs/screenshot_code_preview.jpg "Live Code Preview Screenshot")
+
+When the AI generates a code block containing these languages, a "Preview" button will appear, allowing you to instantly
+see the visual result without having to download the code.
+
+
 # Special Commands
 Use special commands to perform an action quickly and easily.
 

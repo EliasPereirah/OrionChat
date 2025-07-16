@@ -168,6 +168,7 @@ const language_extension = {
     "python": "py",
     "markdown": "md",
     "javascript": "js",
+    "js": "js",
     "java": "java",
     "c": "c",
     "cpp": "cpp",
@@ -887,6 +888,7 @@ function enableCopyForCode(enable_down_too = true) {
 
     document.querySelectorAll('pre code').forEach(block => {
         let block_group = block.previousElementSibling;
+
         let has_copy_btn = false;
         if (block_group) {
             has_copy_btn = block_group.querySelector(".copy-btn");
@@ -899,10 +901,19 @@ function enableCopyForCode(enable_down_too = true) {
             button.innerText = 'Copy';
             button.title = "Copy code";
             const btn_down = button.cloneNode(false);
+            const btn_preview = button.cloneNode(false);
             btn_down.className = 'down-btn';
             btn_down.innerText = 'Down';
             btn_down.title = "Download code";
+
+            btn_preview.className = 'preview-btn';
+            btn_preview.innerText = 'Preview';
+            btn_preview.title = "Preview code";
             div_ele.append(button);
+            if(block.classList.contains('html')) {
+                btn_preview.setAttribute('onclick', "savePreviewCode(event)");
+                div_ele.append(btn_preview)
+            }
             if (enable_down_too) {
                 div_ele.append(btn_down);
             }
@@ -3504,6 +3515,47 @@ function themeToggle() {
 function goNuggets(){
     document.location.href = 'experiments/nuggets.html';
 }
+
+
+
+
+function savePreviewCode(event){
+    let chat_box = event.target.parentElement.parentElement.parentElement;
+    let html_target = event.target.parentElement.parentElement;
+    let html_code_to_preview = document.createElement('div');
+    html_code_to_preview.innerHTML = html_target.querySelector(".html").innerText;
+    let css_elements = html_code_to_preview.querySelectorAll("[rel='stylesheet']");
+    let js_elements = html_code_to_preview.querySelectorAll('script[src]');
+    let css_idx = 0;
+    let js_idx = 0;
+    chat_box.querySelectorAll(".css").forEach(css=>{
+        let css_ele = css_elements[css_idx] ?? '';
+        if(css_ele){
+            let style_tag = document.createElement('style');
+            style_tag.innerHTML = css.innerText;
+            css_ele.after(style_tag);
+            css_ele.remove();
+
+        }
+        css_idx++;
+    });
+
+    chat_box.querySelectorAll(".language-javascript").forEach(js=>{
+        let js_ele = js_elements[js_idx] ?? '';
+        if(js_ele){
+            let script_tag = document.createElement('script');
+            script_tag.textContent = js.innerText;
+            js_ele.after(script_tag);
+            js_ele.remove();
+
+        }
+        js_idx++;
+    });
+    localStorage.setItem('preview', html_code_to_preview.innerHTML);
+    window.open('experiments/preview','_blank');
+
+}
+
 
 let theme_toggle_button = document.querySelector("#theme_toggle");
 theme_toggle_button.onclick = () => {
