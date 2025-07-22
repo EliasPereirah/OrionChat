@@ -3487,7 +3487,8 @@ function deletePrompt() {
 function updateChatPlaceholder (){
     let textarea_chat = document.querySelector("#ta_chat");
     if(model){
-        textarea_chat.placeholder = `Ask ${model}`;
+        let short_model_name = model.replace(/.*\//,""); // eg.: moonshotai/kimi-k2-instruct > kimi-k2-instruct
+        textarea_chat.placeholder = `Ask ${short_model_name}`;
     }else {
        textarea_chat.placeholder = 'Ask me something';
     }
