@@ -3526,7 +3526,7 @@ function savePreviewCode(event){
     let html_code_to_preview = document.createElement('div');
     html_code_to_preview.innerHTML = html_target.querySelector(".html").innerText;
     let css_elements = html_code_to_preview.querySelectorAll("[rel='stylesheet']");
-    let js_elements = html_code_to_preview.querySelectorAll('script[src]');
+    let js_elements = html_code_to_preview.querySelectorAll('script[src]:not([src^="http:"]):not([src^="https:"]):not([src^="//"])');
     let css_idx = 0;
     let js_idx = 0;
     chat_box.querySelectorAll(".css").forEach(css=>{
