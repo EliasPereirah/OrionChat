@@ -3576,8 +3576,33 @@ if (theme && current_theme) {
     }
 }
 
+
 let new_url = document.URL;
+let O_URL = new URL(document.URL);
+let url_set_model = O_URL.searchParams.get('model')?.trim();
+let url_set_platform = O_URL.searchParams.get('platform')?.trim().toLowerCase();
+if(url_set_model && url_set_platform){
+    url_set_model = url_set_model.replace(/[^a-z0-9._:/-]/ig, '').replaceAll("..","")
+    if(PLATFORM_DATA[url_set_platform]){
+        model = url_set_model;
+        chosen_platform = url_set_platform;
+        localStorage.setItem('selected_model', model);
+        localStorage.setItem('chosen_platform', chosen_platform);
+        endpoint = PLATFORM_DATA[chosen_platform].endpoint;
+        localStorage.setItem('endpoint', endpoint)
+        api_key = localStorage.getItem(`${chosen_platform}.api_key`)
+        updateChatPlaceholder();
+    }else {
+        addWarning('<p>This provider is not valid!</p> <p> Valid providers are: '+Object.keys(PLATFORM_DATA).join(", ")+'</p>')
+    }
+
+
+
+
+}
 new_url = new_url.split('?')[0];
 new_url = new_url.split("#")[0];
 new_url += "#" + chat_id;
-history.pushState({url: new_url}, '', new_url);
+if(!url_set_model){
+    history.pushState({url: new_url}, '', new_url);
+}

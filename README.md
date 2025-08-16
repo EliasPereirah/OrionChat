@@ -153,6 +153,13 @@ Otherwise, asking about it may cause the AI to hallucinate.
 
 The upside is better token efficiency.
 
+### Select AI model via URL
+Example: https://eliaspereirah.github.io/OrionChat/?model=moonshotai/kimi-k2-instruct&platform=Groq will select the `moonshotai/kimi-k2-instruct` model for the `Groq` platform.
+
+This way, you can save the URL in your bookmarks, making it easier to switch between models for different types of tasks.
+
+
+
 ### Old chats
 Orion will automatically delete older chats when the number of chats exceeds 512, so the maximum chat history will be 512.
 
