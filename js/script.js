@@ -324,6 +324,7 @@ function addConversation(role, content, add_to_document = true, do_scroll = true
             cnt = converter.makeHtml(full_content);
             div.innerHTML = cnt;
             genAudio(clen_content, div);
+
         } else {
             let lastBot = document.querySelectorAll(".bot")[document.querySelectorAll(".bot").length - 1];
             genAudio(clen_content, lastBot);
@@ -346,8 +347,7 @@ function saveLocalHistory() {
             localStorage.setItem(chat_id.toString(), JSON.stringify(conversations));
         }catch (e) {
             if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED'){
-                addWarning('Your browser has reached the maximum number of items allowed for local storage.' +
-                    ' Please clear out some old chats to free up space.', false);
+                //addWarning('Your browser has reached the maximum number of items allowed for local storage. Please clear out some old chats to free up space.', false);
             }
         }
     }
@@ -550,7 +550,6 @@ function loadOldConversation(old_talk_id) {
                 }
                 div_talk.innerHTML = converter.makeHtml(full_content);
             }
-
             chatMessages.append(div_talk);
 
         });
@@ -985,17 +984,25 @@ function enableFullTextCopy() {
         if (!has_copy_btn) {   // to not be added more the one time
             const button = document.createElement('button');
             const btn_info = document.createElement('button');
+            const btn_edit = document.createElement('button');
             const ele = document.createElement('div');
             ele.className = 'btn-ft-group';
             button.className = 'copy-btn';
             btn_info.className = 'see_info';
+            btn_edit.className = 'btn-edit btn-new';
             button.innerText = 'Copy text';
             btn_info.innerText = 'Info';
+            btn_edit.innerText = 'Edit';
             btn_info.onclick = () => {
                 showInfo();
             }
+            btn_edit.onclick = ()=>{
+                window.open('experiments/chat_editing?chat_id='+chat_id,'_blank');
+
+            }
             ele.append(button);
             ele.append(btn_info)
+            ele.append(btn_edit)
             div.append(ele);
             button.addEventListener('click', () => {
                 //const full_text = div_copy.innerHTML;
@@ -2492,8 +2499,6 @@ async function streamChat(can_use_tools = true) {
             hljs.highlightAll();
             if (first_response) {
                 first_response = false;
-                //toggleAnimation(true);
-                //toggleAiGenAnimation(false);
                 botMessageDiv.scrollIntoView();
             }
 
@@ -3595,7 +3600,6 @@ if(url_set_model && url_set_platform){
     }else {
         addWarning('<p>This provider is not valid!</p> <p> Valid providers are: '+Object.keys(PLATFORM_DATA).join(", ")+'</p>')
     }
-
 
 
 

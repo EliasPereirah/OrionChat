@@ -159,6 +159,15 @@ Example: https://eliaspereirah.github.io/OrionChat/?model=moonshotai/kimi-k2-ins
 This way, you can save the URL in your bookmarks, making it easier to switch between models for different types of tasks.
 
 
+### Few-Shot prompting
+
+You can now edit or remove parts of a conversation. 
+
+This is also very useful for applying the Few-Shot prompting technique, guiding how the AI should respond if the 
+system prompt is not sufficient.
+First, interact with the AI, and the edit option will appear right below the response. 
+
+From then on, you can edit the conversation and add new examples as you wish.
 
 ### Old chats
 Orion will automatically delete older chats when the number of chats exceeds 512, so the maximum chat history will be 512.

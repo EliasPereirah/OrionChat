@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Chat editing">
+    <title>Chat editing - OrionChat</title>
+    <link rel="icon" href="../../favicon.png">
+    <link rel="stylesheet" href="../../css/chat.css?v=3.2.2">
+    <link rel="stylesheet" href="../../css/labs.css?v=1.0.1">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Chat editing - OrionChat">
+    <meta property="og:description" content="Chat editing - OrionChat">
+    <meta property="og:image" content="https://eliaspereirah.github.io/OrionChat/imgs/screenshot.png">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:url" content="https://eliaspereirah.github.io/OrionChat/">
+</head>
+<body>
+<div class="container">
+    <div id="all_dialogs"></div>
+    <div class="conversations">
+        <div class="jsClose"></div>
+    </div>
+    <div id="experiments" class="labs">
+        <div class="center">
+            <h1>Chat editing</h1>
+            <p>Edit or remove specific parts of chat conversations</p>
+            <div class="center">
+                <button onclick="saveChanges()" id="save_changes">Save Changes</button>
+                <button class="add_field" onclick="addField()">Add fields</button>
+                <br><br>
+            </div>
+            <div class="center">
+                <div class="info_warning"></div>
+                <div id="edit_task"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div> <!-- end container -->
+<script src="../../js/edit.js?v=0.0.4"></script>
+</body>
+<style>
+    #edit_task{
+    }
+    label{
+        /* display: grid;
+        margin-bottom: 25px; */
+        max-width: 80%;
+    }
+    #edit_task textarea{
+        float: left;
+        padding: 4px !important;
+        border-radius: 5px !important;
+    }
+    #edit_task button{
+        width: fit-content;
+    }
+    #edit_task button{
+        float: left;
+    }
+    #my_form{
+        max-height: 70dvh;
+        overflow-y: scroll;
+    }
+    .block{
+        display: inline-grid;
+        width: 80%;
+        margin: 0 10% 35px;
+    }
+
+    .save{
+        color: #fff;
+        background-color: #25a359;
+        font-weight: 600;
+    }
+
+</style>
+</html>

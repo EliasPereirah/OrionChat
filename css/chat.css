@@ -551,7 +551,7 @@ code.hljs::-webkit-scrollbar-track {
     margin-top: -33px;
 }
 
-.copy-btn, .down-btn, .see_info, .preview-btn {
+.copy-btn, .down-btn, .see_info, .preview-btn, .btn-edit{
     padding: 3px 5px;
     color: var(--copy-btn-color);
     background-color: transparent;
@@ -562,10 +562,15 @@ code.hljs::-webkit-scrollbar-track {
 }
 
 
-.btn-group .copy-btn, .btn-group .down-btn,.preview-btn {
+.btn-group .copy-btn, .btn-group .down-btn, .preview-btn, .btn-edit {
     background-color: var(--copy-btn-bg);
 }
-.preview-btn{
+
+.see_info{
+    display: none !important;
+}
+
+.preview-btn, .btn-new{
     border: 1px solid #FFEB3B;
 }
 
