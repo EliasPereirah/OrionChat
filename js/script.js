@@ -974,7 +974,7 @@ function enableFullTextCopy() {
             ele.className = 'btn-ft-group';
             button.className = 'copy-btn';
             btn_info.className = 'see_info';
-            btn_edit.className = 'btn-edit btn-new';
+            btn_edit.className = 'btn-edit';
             button.innerText = 'Copy text';
             btn_info.innerText = 'Info';
             btn_edit.innerText = 'Edit';
