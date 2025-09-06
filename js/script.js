@@ -37,20 +37,14 @@ let PLATFORM_DATA = {
             "gpt-4.1",
             "gpt-4.1-mini",
             "gpt-4.1-nano",
-            "o1",
-            "o1-mini",
-            "o3-mini"
         ],
         name: "OpenAI",
         endpoint: "https://api.openai.com/v1/chat/completions"
     },
     groq: {
         models: [
-            "moonshotai/kimi-k2-instruct",
-            "qwen-qwq-32b",
-            "deepseek-r1-distill-llama-70b",
-            "llama-3.3-70b-versatile",
-            "llama-3.2-90b-vision-preview",
+            "moonshotai/kimi-k2-instruct-0905",
+            "openai/gpt-oss-120b"
         ],
         name: "Groq",
         endpoint: "https://api.groq.com/openai/v1/chat/completions"
@@ -59,19 +53,24 @@ let PLATFORM_DATA = {
         models: [
             "gemini-2.5-pro",
             "gemini-2.5-flash-preview-05-20",
-            "gemini-2.0-flash-preview-image-generation",
-            "gemini-2.5-flash-lite-preview-06-17"
+            "gemini-2.0-flash-preview-image-generation"
 
         ],
         name: "Google",
         endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/{{model}}:{{gen_mode}}?key={{api_key}}'
     },
+    cerebras: {
+        models: [
+            "qwen-3-235b-a22b-instruct-2507"
+        ],
+        name: "Cerebras",
+        endpoint: "https://api.cerebras.ai/v1/chat/completions"
+    },
     anthropic: {
         models: [
+            "claude-opus-4-1-20250805",
             "claude-3-7-sonnet-20250219",
-            "claude-3-5-sonnet-20241022",
             "claude-3-5-haiku-20241022",
-            "claude-3-haiku-20240307"
         ],
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"
@@ -86,20 +85,14 @@ let PLATFORM_DATA = {
     },
     cohere: {
         models: [
-            "command-a-03-2025",
-            "command-r-plus-08-2024",
-            "command-r-plus-04-2024",
-            "c4ai-aya-expanse-32b",
-            "c4ai-aya-23-35b",
-            "command-light"
+            "command-a-03-2025"
         ],
         name: "Cohere",
         endpoint: "https://api.cohere.com/v2/chat"
     },
     openrouter: {
         models: [
-            "deepseek/deepseek-r1:free",
-            "google/gemini-2.0-flash-exp:free"
+            "openai/gpt-5"
         ],
         name: "OpenRouter",
         endpoint: "https://openrouter.ai/api/v1/chat/completions"
@@ -118,13 +111,6 @@ let PLATFORM_DATA = {
 
     },
     **/
-    cerebras: {
-        models: [
-            "llama-3.3-70b"
-        ],
-        name: "Cerebras",
-        endpoint: "https://api.cerebras.ai/v1/chat/completions"
-    },
     hyperbolic: {
         models: [
             "deepseek-ai/DeepSeek-V3-0324"
@@ -134,7 +120,7 @@ let PLATFORM_DATA = {
     },
     xai: {
         models: [
-            "grok-beta"
+            "grok-4-latest"
         ],
         name: "xAI",
         endpoint: "https://api.x.ai/v1/chat/completions"
@@ -142,7 +128,7 @@ let PLATFORM_DATA = {
 
     together: {
         models: [
-            "deepseek-ai/DeepSeek-R1-Distill-Llama-70B-free",
+            "deepseek-ai/DeepSeek-V3.1",
             "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
         ],
         name: "Together AI",
@@ -150,7 +136,7 @@ let PLATFORM_DATA = {
     },
     deepinfra: {
         models: [
-            "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+            "zai-org/GLM-4.5"
         ],
         name: "Deep Infra",
         endpoint: "https://api.deepinfra.com/v1/openai/chat/completions"
@@ -162,7 +148,6 @@ let PLATFORM_DATA = {
         endpoint: "http://localhost:11434/v1/chat/completions"
     }
 }
-
 
 const language_extension = {
     "python": "py",
@@ -1440,7 +1425,7 @@ function setOptions() {
     let platform_info = '';
     let platform_name = '';
     if (chosen_platform) {
-        platform_name = PLATFORM_DATA[chosen_platform].name ?? '';
+        platform_name = PLATFORM_DATA[chosen_platform]?.name ?? '';
         platform_info = `<p class="platform_info">Active:<b> ${model}</b> from <b>${platform_name}</b></p>`;
     }
     let platform_options = '<div><p>Choose a Model</p><select name="platform"><option disabled="disabled" selected="selected">Select</option>';
@@ -1771,8 +1756,19 @@ function addNewModel() {
             } else {
                 extra_models[provider] = [new_model];
             }
+
+            localStorage.setItem('selected_model', new_model);
+            localStorage.setItem('chosen_platform', provider);
+            endpoint = PLATFORM_DATA[provider].endpoint;
+            localStorage.setItem('endpoint', endpoint)
+            api_key = localStorage.getItem(`${provider}.api_key`);
+            chosen_platform = provider;
+            model = new_model;
+
             localStorage.setItem('extra_models', JSON.stringify(extra_models));
             addWarning('New model added successfully!', true, 'success_dialog');
+            updateChatPlaceholder();
+
         } else {
             let msg = `Model ${new_model} for ${provider} already exists!`;
             addWarning(msg, true, 'fail_dialog');
@@ -3595,7 +3591,25 @@ if(url_set_model && url_set_platform){
         localStorage.setItem('chosen_platform', chosen_platform);
         endpoint = PLATFORM_DATA[chosen_platform].endpoint;
         localStorage.setItem('endpoint', endpoint)
-        api_key = localStorage.getItem(`${chosen_platform}.api_key`)
+        api_key = localStorage.getItem(`${chosen_platform}.api_key`);
+
+        let has_model = PLATFORM_DATA[chosen_platform]?.models?.includes(model) ?? false;
+        if (!has_model) {
+            let extra_models = localStorage.getItem("extra_models");
+            if (extra_models === null) {
+                extra_models = '{}';
+            }
+            extra_models = JSON.parse(extra_models);
+            if (extra_models[chosen_platform]) {
+                extra_models[chosen_platform].push(model);
+            } else {
+                extra_models[chosen_platform] = [model];
+            }
+            localStorage.setItem('extra_models', JSON.stringify(extra_models));
+            addWarning('New model added successfully!', true, 'success_dialog');
+        }
+
+
         updateChatPlaceholder();
     }else {
         addWarning('<p>This provider is not valid!</p> <p> Valid providers are: '+Object.keys(PLATFORM_DATA).join(", ")+'</p>')
