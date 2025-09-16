@@ -575,7 +575,7 @@ code.hljs::-webkit-scrollbar-track {
 }
 
 
-.btn-ft-group .copy-btn, .see_info {
+.btn-ft-group .copy-btn, .see_info,.btn-edit {
     color: var(--copy-btn-ft-color);
     border: 1px solid var(--copy-btn-ft-border);
     margin-top: 5px;

@@ -85,9 +85,10 @@ function searchPastChats(query) {
         let matchesInChatCount = 0;
         let first_msg = '';
         chat.msg.forEach(msg => {
-            let cnt = msg.content.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+            let msg_cnt = msg?.content ?? '';
+            let cnt = msg_cnt.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
             if (first_msg === '') {
-                first_msg = msg.content;
+                first_msg = msg_cnt;
             }
             if (cnt) {
                 const currentMatches = cnt.match(regex);
@@ -164,12 +165,12 @@ input_search.onkeyup = () => {
                 }
                 let open_chat = document.createElement('div');
                 open_chat.setAttribute('chat_id', result.id);
-                open_chat.innerHTML = result.first_msg;
+                open_chat.innerText = result.first_msg;
                 open_chat.querySelector('details')?.remove();
                 if(open_chat.innerText.length > 137){
-                    open_chat.innerHTML = open_chat.innerText.substring(0, 133) + '...';
+                    open_chat.innerText = open_chat.innerText.substring(0, 133) + '...';
                 }
-                open_chat.innerHTML += date_info;
+                open_chat.innerText += date_info;
                 open_chat.classList.add('result_item');
                 open_chat.setAttribute('onclick', `openOldChat(${result.id})`);
                 div_show.appendChild(open_chat);
