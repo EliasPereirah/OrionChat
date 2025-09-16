@@ -373,11 +373,16 @@ function getPreviousChatTopic() {
             let topic = JSON.parse(localStorage.getItem(id))?.messages?.[0]?.content ?? '';
             tmp_div.innerHTML = topic;
             tmp_div.querySelector("details")?.remove();
+            tmp_div.querySelector("img")?.remove();
+            tmp_div.querySelector("video")?.remove();
+            tmp_div.querySelector("audio")?.remove();
+            tmp_div.querySelector("iframe")?.remove();
             topic = tmp_div.innerText.trim();
             let last_interaction = JSON.parse(localStorage.getItem(id))?.last_interact ?? id;
-            if (topic) {
-                all_topics.push({'topic': topic, 'id': id, 'last_interaction': last_interaction});
+            if (topic ==='') {
+               topic = '...';
             }
+            all_topics.push({'topic': topic, 'id': id, 'last_interaction': last_interaction});
         } catch (error) {
             console.error('Error parser to JSON: ' + error)
         }

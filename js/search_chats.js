@@ -9,6 +9,7 @@ function escapeRegExp(string) {
 
 function openOldChat(chat_id) {
     let chat = document.querySelector("[data-id='" + chat_id + "']");
+    console.log(chat)
     if(chat){
         closeDialogs();
         if(can_delete_history){
@@ -165,12 +166,18 @@ input_search.onkeyup = () => {
                 }
                 let open_chat = document.createElement('div');
                 open_chat.setAttribute('chat_id', result.id);
-                open_chat.innerText = result.first_msg;
+                open_chat.innerHTML = result.first_msg;
                 open_chat.querySelector('details')?.remove();
+                open_chat.querySelector('iframe')?.remove();
+                open_chat.querySelector('img')?.remove();
+                open_chat.querySelector('video')?.remove();
+                open_chat.querySelector('audio')?.remove();
                 if(open_chat.innerText.length > 137){
                     open_chat.innerText = open_chat.innerText.substring(0, 133) + '...';
+                }else if(open_chat.innerText.trim().length ===0){
+                    open_chat.innerText = 'Click to view';
                 }
-                open_chat.innerText += date_info;
+                open_chat.innerHTML += date_info;
                 open_chat.classList.add('result_item');
                 open_chat.setAttribute('onclick', `openOldChat(${result.id})`);
                 div_show.appendChild(open_chat);
