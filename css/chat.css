@@ -1001,7 +1001,7 @@ select {
 #theme_toggle {
     background-color: var(--theme-toggle-bg);
     margin: 5px 0;
-    color: var(--theme-toggle-cl);
+    /* color: var(--theme-toggle-cl); */
 }
 
 .history {

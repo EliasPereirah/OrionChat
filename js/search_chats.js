@@ -9,7 +9,6 @@ function escapeRegExp(string) {
 
 function openOldChat(chat_id) {
     let chat = document.querySelector("[data-id='" + chat_id + "']");
-    console.log(chat)
     if(chat){
         closeDialogs();
         if(can_delete_history){
