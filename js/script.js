@@ -332,7 +332,7 @@ function saveLocalHistory() {
             localStorage.setItem(chat_id.toString(), JSON.stringify(conversations));
         }catch (e) {
             if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED'){
-                //addWarning('Your browser has reached the maximum number of items allowed for local storage. Please clear out some old chats to free up space.', false);
+                addWarning('Your browser has reached the maximum number of items allowed for local storage. Please clear out some old chats to free up space.', false);
             }
         }
     }
