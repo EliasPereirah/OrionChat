@@ -17,13 +17,7 @@ It provides a unified platform for chatting and exploring multiple large languag
 - 🔥 Hyperbolic - The Open Access AI Cloud
 
 
-## Screenshot
-- **Light theme:**
-
-![OrionChat Screenshot](imgs/screenshot.png "OrionChat Screenshot")
-
-**Dark Theme:** 
-
+## Chat Interface Screenshot
 ![OrionChat Screenshot](imgs/screenshot_dark_theme.jpg "OrionChat Screenshot - Dark Theme")
 
 
