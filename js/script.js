@@ -1454,7 +1454,6 @@ function setOptions() {
     let add_new_models = `<button class="more_opt_btn" onclick="addModelsOptions()">Add Models</button>`;
     let more_option = `<button class="more_opt_btn" onclick="moreOptions()">More Options</button>`;
     let btn_youtube_api = `<button class="more_opt_btn" onclick="dialogSetYouTubeCaptionApiEndpoint()">YouTube Captions</button>`;
-    let bnt_nuggets = `<button class="more_opt_btn" onclick="goNuggets()">Nuggets</button>`;
 
     let cnt =
         `<div>${platform_options}
@@ -1470,7 +1469,6 @@ function setOptions() {
          <span>${plugin_option}</span>
          <span>${more_option}</span>
          <span>${btn_youtube_api}</span>
-         <span>${bnt_nuggets}</span>
         
          </div>`;
     createDialog(cnt, 0, 'optionsDialog');
@@ -3518,12 +3516,6 @@ function themeToggle() {
         }
     }
 }
-
-function goNuggets(){
-    document.location.href = 'experiments/nuggets.html';
-}
-
-
 
 
 function savePreviewCode(event){
