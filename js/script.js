@@ -1243,10 +1243,13 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         }
 
         conversations.messages.forEach(cnv=>{
-            if(file_search_store_id){
-                data.tools =  [{'file_search' : { file_search_store_names: file_search_store_id}}];
-            }else {
-                addWarning("File Search is not configured!", false)
+            if(cnv.role === "user" && cnv.content.match(/^fs:/i)){
+                if(file_search_store_id){
+                    with_stream = false;
+                    data.tools =  [{'file_search' : { file_search_store_names: file_search_store_id}}];
+                }else {
+                    addWarning("File Search is not configured!", false)
+                }
             }
         })
 
