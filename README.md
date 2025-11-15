@@ -37,6 +37,7 @@ user-friendly interface.
 - 🎛️ Customizable system prompts to tailor responses 🛠️
 - 🌐 Special command for quick and easy language translation tasks
 - 📁 Upload a variety of documents (text, PDF, images, video) to Google Gemini for analysis and processing
+- 🔎 [File Search](https://ai.google.dev/gemini-api/docs/file-search) The Gemini API enables Retrieval Augmented Generation ("RAG") through the File Search tool
 - 🧠 Awesome Prompts 150+ awesome prompts most of them from [Awesome ChatGPT Prompts](https://github.com/f/awesome-chatgpt-prompts) to select with one click.
 
 ###### \### Help the project by giving a star. \###
@@ -83,10 +84,18 @@ It will only work when the currently active model is any of Google Gemini.
 ###  Grounding with Google Search 
 - `g: what's the main news today`
 
-The Grounding with Google Search feature in the Gemini API can be used to improve the accuracy and recency of the model's 
+The Grounding with `Google Search` feature in the Gemini API can be used to improve the accuracy and recency of the model's 
 responses, essentially an internal RAG within the Gemini API itself.
 
 You can now use this feature when using any Gemini 2.0 model, whether flash or pro, simply by typing `g: + your prompt.`
+
+### File Search
+- `fs: What does my files say about philanthropy?`
+
+File Search is a new feature of the Google Gemini API that allows you to index your own files and use them as context for Gemini.
+
+Note: OrionChat does not provide an interface for creating a `FileSearchStore` and uploading files to it. 
+You can do this via the Google API and then configure the name (ID) of your store in OrionChat.
 
 
 ### Deep Thinking

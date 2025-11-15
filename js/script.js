@@ -5,6 +5,7 @@ let chosen_platform = localStorage.getItem('chosen_platform');
 let model = localStorage.getItem('selected_model');
 let is_mobile = window.matchMedia("(max-width: 768px)").matches;
 let api_key = localStorage.getItem(`${chosen_platform}.api_key`)
+let file_search_store_id = localStorage.getItem("file_search_store_id");
 let base64String = '';
 let mimeType = '';
 let story = '';
@@ -1239,8 +1240,15 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
         if (last_user_input.match(/^g:/i)) {
             // Grounding with Google Search
             data.tools = [{'google_search': {}}];
-
         }
+
+        conversations.messages.forEach(cnv=>{
+            if(file_search_store_id){
+                data.tools =  [{'file_search' : { file_search_store_names: file_search_store_id}}];
+            }else {
+                addWarning("File Search is not configured!", false)
+            }
+        })
 
 
     }
@@ -1455,6 +1463,8 @@ function setOptions() {
     let more_option = `<button class="more_opt_btn" onclick="moreOptions()">More Options</button>`;
     let btn_youtube_api = `<button class="more_opt_btn" onclick="dialogSetYouTubeCaptionApiEndpoint()">YouTube Captions</button>`;
 
+    let file_search_tool = `<button class="more_opt_btn" onclick="dialogFileSearchTool()">File Search</button>`;
+
     let cnt =
         `<div>${platform_options}
          <input type="text" name="api_key" placeholder="API Key(if not defined yet)">
@@ -1468,6 +1478,7 @@ function setOptions() {
           <span>${add_new_models}</span>
          <span>${plugin_option}</span>
          <span>${more_option}</span>
+         <span>${file_search_tool}</span>
          <span>${btn_youtube_api}</span>
         
          </div>`;
@@ -1803,6 +1814,30 @@ function dialogSetYouTubeCaptionApiEndpoint() {
     createDialog(cnt, 0, 'optionsDialog');
 }
 
+function dialogFileSearchTool(){
+    let input_value = '';
+    let cnt =
+        `<div><p>Gemini File Search</p>
+        <input ${input_value} id="file_search_tool" name="file_search_tool" placeholder="Store Name (ID)">
+        <button onclick="setFileSearchTool()">Save</button>
+        <p>The Gemini API enables Retrieval Augmented Generation ("RAG") through the <a href="https://ai.google.dev/gemini-api/docs/file-search">File Search</a> tool.</p>
+        <p>If you already have a store with indexed files, set your store ID above.
+        Whenever you want a response from Gemini based on indexed data, type "fs: + your prompt"</p>
+        </div>
+        <div></div>
+        `
+    createDialog(cnt, 0, 'optionsDialog');
+}
+
+function setFileSearchTool(){
+    let ele = document.querySelector("#file_search_tool");
+    if (ele) {
+        let file_search_tool = ele.value.trim();
+        localStorage.setItem('file_search_store_id', file_search_tool);
+        file_search_store_id = file_search_tool;
+    }
+    closeDialogs();
+}
 
 function orderTopics() {
     let topics = document.querySelectorAll('.topic');
