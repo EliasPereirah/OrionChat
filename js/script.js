@@ -53,7 +53,7 @@ let PLATFORM_DATA = {
     google: {
         models: [
             "gemini-2.5-pro",
-            "gemini-2.5-flash-preview-05-20",
+            "gemini-flash-latest",
             "gemini-2.0-flash-preview-image-generation"
 
         ],
@@ -1817,19 +1817,45 @@ function dialogSetYouTubeCaptionApiEndpoint() {
     createDialog(cnt, 0, 'optionsDialog');
 }
 
-function dialogFileSearchTool(){
-    let input_value = '';
+async function dialogFileSearchTool() {
+
     let cnt =
         `<div><p>Gemini File Search</p>
-        <input ${input_value} id="file_search_tool" name="file_search_tool" placeholder="Store Name (ID)">
+        <p>Select a store:</p>
+        <select id="file_search_tool" name="file_search_tool"></select>
         <button onclick="setFileSearchTool()">Save</button>
-        <p>The Gemini API enables Retrieval Augmented Generation ("RAG") through the <a href="https://ai.google.dev/gemini-api/docs/file-search">File Search</a> tool.</p>
-        <p>If you already have a store with indexed files, set your store ID above.
-        Whenever you want a response from Gemini based on indexed data, type "fs: + your prompt"</p>
+        <p>The Gemini API enables Retrieval Augmented Generation ("RAG") through the <a target="_blank" href="https://ai.google.dev/gemini-api/docs/file-search">File Search</a> tool.</p>
+        <p>If you already have a store with indexed files, select the store you want to use above.</p>
+        <p>Whenever you want a response from Gemini based on the indexed data, type "fs: + your prompt"</p>
         </div>
         <div></div>
         `
     createDialog(cnt, 0, 'optionsDialog');
+    let gemini_api_key = localStorage.getItem("google.api_key");
+    let ele_fs_store = document.getElementById('file_search_tool');
+    if (gemini_api_key) {
+        let client = new GeminiFileSearchApiClient(gemini_api_key);
+        let options = '';
+        try {
+            let store_list = await client.listStores();
+            store_list.fileSearchStores.forEach(store=>{
+                let store_id = store.name;
+                let store_display_name = store.displayName;
+                options += `<option value="${store_id}">${store_display_name}</option>`;
+            })
+        }catch (error){
+            console.warn(error);
+        }
+        if(options){
+            ele_fs_store.innerHTML = options;
+        }else {
+            addWarning("Make sure you have a store associated with your Gemini API Key.", false, 'fail_dialog');
+        }
+        console.log("["+options+"]");
+    } else {
+        addWarning("No Gemini API key configured.");
+    }
+
 }
 
 function setFileSearchTool(){
