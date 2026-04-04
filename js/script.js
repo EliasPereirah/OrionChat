@@ -35,16 +35,16 @@ let converter = new showdown.Converter();
 let PLATFORM_DATA = {
     openai: {
         models: [
-            "gpt-4.1",
-            "gpt-4.1-mini",
-            "gpt-4.1-nano",
+            "gpt-5.4",
+            "gpt-5.4-mini",
+            "gpt-5.4-nano",
         ],
         name: "OpenAI",
         endpoint: "https://api.openai.com/v1/chat/completions"
     },
     groq: {
         models: [
-            "moonshotai/kimi-k2-instruct-0905",
+            "qwen/qwen3-32b",
             "openai/gpt-oss-120b"
         ],
         name: "Groq",
@@ -52,9 +52,9 @@ let PLATFORM_DATA = {
     },
     google: {
         models: [
-            "gemini-2.5-pro",
+            "gemini-pro-latest",
             "gemini-flash-latest",
-            "gemini-2.0-flash-preview-image-generation"
+            "gemini-flash-lite-latest"
 
         ],
         name: "Google",
@@ -69,9 +69,9 @@ let PLATFORM_DATA = {
     },
     anthropic: {
         models: [
-            "claude-opus-4-1-20250805",
-            "claude-3-7-sonnet-20250219",
-            "claude-3-5-haiku-20241022",
+            "claude-opus-4-6",
+            "claude-sonnet-4-6",
+            "claude-haiku-4-5",
         ],
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"

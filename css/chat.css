@@ -706,7 +706,7 @@ th {
     padding: 0;
     margin: 12px;
     font-size: 1.33em;
-    font-family: math, sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
 
@@ -880,7 +880,7 @@ html[data-theme="dark"] #settings {
     background-color: var(--user-msg-bg);
     border: 1px solid var(--user-msg-border);
     border-radius: 7px;
-    font-family: math, sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
 }
 
 
@@ -974,7 +974,7 @@ input:checked + .slider:before {
 }
 
 select {
-    height: 33px;
+    min-height: 33px;
     font-weight: 600;
 }
 
