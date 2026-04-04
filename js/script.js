@@ -54,7 +54,8 @@ let PLATFORM_DATA = {
         models: [
             "gemini-pro-latest",
             "gemini-flash-latest",
-            "gemini-flash-lite-latest"
+            "gemini-flash-lite-latest",
+            "gemini-3.1-flash-image-preview"
 
         ],
         name: "Google",
@@ -1202,7 +1203,7 @@ function geminiChat(fileUri = '', with_stream = true, the_data = '') {
     if(pog === 'pic' || pog === 'imagine'){
         save_history = false;
         console.log('image generation command activated');
-        gemini_model = "gemini-2.0-flash-preview-image-generation";
+        gemini_model = "gemini-3.1-flash-image-preview";
     }
 
     if(gemini_model.includes("image")){
