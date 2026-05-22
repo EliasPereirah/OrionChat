@@ -42,16 +42,9 @@ let PLATFORM_DATA = {
         name: "OpenAI",
         endpoint: "https://api.openai.com/v1/chat/completions"
     },
-    groq: {
-        models: [
-            "qwen/qwen3-32b",
-            "openai/gpt-oss-120b"
-        ],
-        name: "Groq",
-        endpoint: "https://api.groq.com/openai/v1/chat/completions"
-    },
     google: {
         models: [
+            "gemini-3.5-flash",
             "gemini-pro-latest",
             "gemini-flash-latest",
             "gemini-flash-lite-latest",
@@ -61,14 +54,7 @@ let PLATFORM_DATA = {
         name: "Google",
         endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/{{model}}:{{gen_mode}}?key={{api_key}}'
     },
-    cerebras: {
-        models: [
-            "qwen-3-235b-a22b-instruct-2507"
-        ],
-        name: "Cerebras",
-        endpoint: "https://api.cerebras.ai/v1/chat/completions"
-    },
-    anthropic: {
+     anthropic: {
         models: [
             "claude-opus-4-6",
             "claude-sonnet-4-6",
@@ -76,6 +62,21 @@ let PLATFORM_DATA = {
         ],
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"
+    },
+     groq: {
+        models: [
+            "qwen/qwen3-32b",
+            "openai/gpt-oss-120b"
+        ],
+        name: "Groq",
+        endpoint: "https://api.groq.com/openai/v1/chat/completions"
+    },
+    cerebras: {
+        models: [
+            "qwen-3-235b-a22b-instruct-2507"
+        ],
+        name: "Cerebras",
+        endpoint: "https://api.cerebras.ai/v1/chat/completions"
     },
     deepseek: {
         models: [
