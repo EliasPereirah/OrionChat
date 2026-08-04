@@ -382,10 +382,10 @@ function getPreviousChatTopic() {
             tmp_div.querySelector("iframe")?.remove();
             topic = tmp_div.innerText.trim();
             let last_interaction = JSON.parse(localStorage.getItem(id))?.last_interact ?? id;
-            if (topic ==='') {
-               topic = '...';
+            if (topic !== '') {
+                all_topics.push({'topic': topic, 'id': id, 'last_interaction': last_interaction});
             }
-            all_topics.push({'topic': topic, 'id': id, 'last_interaction': last_interaction});
+
         } catch (error) {
             console.error('Error parser to JSON: ' + error)
         }
