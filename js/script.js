@@ -132,15 +132,15 @@ let PLATFORM_DATA = {
 
     together: {
         models: [
-            "deepseek-ai/DeepSeek-V3.1",
-            "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"
+            "deepseek-ai/DeepSeek-V4-Flash-0731",
+            "MiniMaxAI/MiniMax-M3"
         ],
         name: "Together AI",
         endpoint: "https://api.together.xyz/v1/chat/completions"
     },
     deepinfra: {
         models: [
-            "zai-org/GLM-4.5"
+            "zai-org/GLM-5.3-Flash"
         ],
         name: "Deep Infra",
         endpoint: "https://api.deepinfra.com/v1/openai/chat/completions"
