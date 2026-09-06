@@ -30,25 +30,24 @@ let dispatcher = 'user';
 showdown.setFlavor('github');
 showdown.setOption('ghMentions', false); // if true "@something" became github.com/something
 showdown.setOption("openLinksInNewWindow", true);
+
 let converter = new showdown.Converter();
 
 let PLATFORM_DATA = {
     openai: {
         models: [
-            "gpt-5.4",
-            "gpt-5.4-mini",
-            "gpt-5.4-nano",
+            "gpt-6-astra",
+            "gpt-5.6-sol",
+            "gpt-5.6-terra",
+            "gpt-5.6-luna"
         ],
         name: "OpenAI",
         endpoint: "https://api.openai.com/v1/chat/completions"
     },
     google: {
         models: [
-            "gemini-3.5-flash",
-            "gemini-pro-latest",
-            "gemini-flash-latest",
-            "gemini-flash-lite-latest",
-            "gemini-3.1-flash-image-preview"
+            "gemini-3.8-flash",
+            "gemini-flash-lite-latest"
 
         ],
         name: "Google",
@@ -56,46 +55,49 @@ let PLATFORM_DATA = {
     },
      anthropic: {
         models: [
-            "claude-opus-4-6",
-            "claude-sonnet-4-6",
-            "claude-haiku-4-5",
+            "claude-fable-5-1",
+            "claude-opus-5",
+            "claude-sonnet-5",
         ],
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"
     },
      groq: {
         models: [
-            "qwen/qwen3-32b",
-            "openai/gpt-oss-120b"
+            "qwen/qwen3.8-27b"
         ],
         name: "Groq",
         endpoint: "https://api.groq.com/openai/v1/chat/completions"
     },
     cerebras: {
         models: [
-            "qwen-3-235b-a22b-instruct-2507"
+            "gpt-oss-120b"
         ],
         name: "Cerebras",
         endpoint: "https://api.cerebras.ai/v1/chat/completions"
     },
     deepseek: {
         models: [
-            "deepseek-reasoner",
-            "deepseek-chat"
+            "deepseek-v4-pro",
+            "deepseek-v4-flash",
+            "deepseek-v4-flash-vision-exp"
         ],
         name: "DeepSeek",
         endpoint: "https://api.deepseek.com/chat/completions"
     },
     cohere: {
         models: [
-            "command-a-03-2025"
+            "command-a-plus-05-2026"
         ],
         name: "Cohere",
         endpoint: "https://api.cohere.com/v2/chat"
     },
     openrouter: {
         models: [
-            "openai/gpt-5"
+            "google/gemini-3.8-flash",
+            "meta/muse-spark-1.2",
+            "z-ai/glm-5.3-flash",
+            "deepseek/deepseek-v4-pro-0813"
         ],
         name: "OpenRouter",
         endpoint: "https://openrouter.ai/api/v1/chat/completions"
@@ -111,7 +113,6 @@ let PLATFORM_DATA = {
     needProxy: true,
     name: "SambaNova",
     endpoint: "https://api.sambanova.ai/v1/chat/completions"
-
     },
     **/
     hyperbolic: {
@@ -2590,7 +2591,7 @@ async function streamChat(can_use_tools = true) {
 }
 
 
-// add file like json, md, txt to user prompt
+// add file like JSON, md, txt to user prompt
 // the addition will occur if it is not an audio, video or image file
 function addFileToPrompt() {
     if (base64String === '') {
