@@ -62,6 +62,28 @@ let PLATFORM_DATA = {
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"
     },
+    openrouter: {
+        models: [
+            "google/gemini-3.8-flash",
+            "meta/muse-spark-1.2",
+            "z-ai/glm-5.3-flash",
+            "deepseek/deepseek-v4-pro-0813"
+        ],
+        name: "OpenRouter",
+        endpoint: "https://openrouter.ai/api/v1/chat/completions"
+    },
+
+
+    meta: {
+        models: [
+            "muse-spark-1.3-contributor"
+        ],
+        name: "Meta AI",
+        endpoint: "https://api.meta.ai/v1/chat/completions"
+    },
+
+
+
      groq: {
         models: [
             "qwen/qwen3.8-27b"
@@ -92,16 +114,7 @@ let PLATFORM_DATA = {
         name: "Cohere",
         endpoint: "https://api.cohere.com/v2/chat"
     },
-    openrouter: {
-        models: [
-            "google/gemini-3.8-flash",
-            "meta/muse-spark-1.2",
-            "z-ai/glm-5.3-flash",
-            "deepseek/deepseek-v4-pro-0813"
-        ],
-        name: "OpenRouter",
-        endpoint: "https://openrouter.ai/api/v1/chat/completions"
-    },
+
    /**
     sambanova: {
     models: [
