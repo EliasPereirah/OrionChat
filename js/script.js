@@ -2114,13 +2114,17 @@ function enableAudioFeature() {
 function needToolUse(last_user_input) {
     let lui = last_user_input.trim();
     let cmd = lui.match(/^[a-z]+:/i)?.[0];
+
     let cmd_list = [
         'search:', 's:',
         'javascript:', 'js:',
-        'youtube:', 'yt:',
         'dt:',
         'pic:','imagine:'
     ]
+    if(localStorage.getItem('yt_down_caption_endpoint')){
+        cmd_list.push('youtube:');
+        cmd_list.push('yt:');
+    }
     if (cmd_list.includes(cmd)) {
         return true;
     } else if (last_user_input.match(/youtube\.com|youtu\.be/)) {
@@ -2128,7 +2132,9 @@ function needToolUse(last_user_input) {
         let past_seconds = (time_now - last_auto_yt_fn_call) / 1000;
         if (past_seconds > 10) {
             last_auto_yt_fn_call = time_now;
-            return true
+            if(localStorage.getItem('yt_down_caption_endpoint')){
+                return true
+            }
         }
     }
     return false;
