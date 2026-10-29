@@ -36,38 +36,28 @@ let converter = new showdown.Converter();
 let PLATFORM_DATA = {
     openai: {
         models: [
-            "gpt-6-astra",
-            "gpt-5.6-sol",
-            "gpt-5.6-terra",
-            "gpt-6-luna"
+            "gpt-6.1-terra"
         ],
         name: "OpenAI",
         endpoint: "https://api.openai.com/v1/chat/completions"
     },
     google: {
         models: [
-            "gemini-3.8-flash",
-            "gemini-flash-lite-latest"
-
+            "gemini-3.8-flash"
         ],
         name: "Google",
         endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/{{model}}:{{gen_mode}}?key={{api_key}}'
     },
      anthropic: {
         models: [
-            "claude-fable-5-1",
-            "claude-opus-5",
-            "claude-sonnet-5",
+            "claude-fable-5-1"
         ],
         name: "Anthropic",
         endpoint: "https://api.anthropic.com/v1/messages"
     },
     openrouter: {
         models: [
-            "google/gemini-3.8-flash",
-            "meta/muse-spark-1.2",
-            "z-ai/glm-5.3-flash",
-            "deepseek/deepseek-v4-pro-0813"
+            "deepseek/deepseek-v4.1-flash-1017"
         ],
         name: "OpenRouter",
         endpoint: "https://openrouter.ai/api/v1/chat/completions"
@@ -100,9 +90,7 @@ let PLATFORM_DATA = {
     },
     deepseek: {
         models: [
-            "deepseek-v4-pro",
-            "deepseek-v4-flash",
-            "deepseek-v4-flash-vision-exp"
+            "deepseek-v4-pro"
         ],
         name: "DeepSeek",
         endpoint: "https://api.deepseek.com/chat/completions"
@@ -145,7 +133,6 @@ let PLATFORM_DATA = {
 
     together: {
         models: [
-            "deepseek-ai/DeepSeek-V4-Flash-0731",
             "MiniMaxAI/MiniMax-M3"
         ],
         name: "Together AI",

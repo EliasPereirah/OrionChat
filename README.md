@@ -42,6 +42,12 @@ user-friendly interface.
 
 ###### \### Help the project by giving a star. \###
 
+## Changes
+
+1. By default, Orion now includes only one defined model for each provider, which makes the interface more streamlined.
+You can always add your preferred AI models via the interface.
+
+
 
 ## API Key Management
 
