@@ -44,8 +44,9 @@ user-friendly interface.
 
 ## Changes
 
-1. By default, Orion now includes only one defined model for each provider, which makes the interface more streamlined.
-You can always add your preferred AI models via the interface.
+1. OrionChat now includes only one model per provider, which makes the interface more streamlined;
+    
+    however, you can add as many models as you like via the interface.
 
 
 

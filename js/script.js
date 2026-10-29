@@ -324,7 +324,6 @@ function addConversation(role, content, add_to_document = true, do_scroll = true
     mediaFull();
     if (do_scroll) {
         div.scrollIntoView();
-
     }
     saveLocalHistory();
 }
